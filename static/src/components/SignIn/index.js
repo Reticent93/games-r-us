@@ -2,7 +2,7 @@ import React, {useState, useContext} from 'react'
 import {useForm} from 'react-hook-form'
 import  { Redirect, withRouter } from 'react-router-dom'
 import firebase from '../../components/utils/firebase'
-import AuthContext from '../Firebase/context'
+import AuthContext from '../Auth'
 
 
 function SignIn({email, passwordOne,passwordTwo,username, history}) {

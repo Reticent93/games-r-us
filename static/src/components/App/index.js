@@ -9,7 +9,7 @@ import Home from '../Home'
 import Accout from '../Account'
 import Admin from '../Admin'
 
-import { AuthProvider } from '../Firebase/context'
+import { AuthProvider } from '../Auth'
 import PrivateRoute from '../PrivateRoute/privateRoute'
 
 

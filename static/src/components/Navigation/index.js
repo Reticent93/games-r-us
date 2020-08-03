@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import SignOut from '../SignOut'
 
 
 export default function Navigation() {
@@ -21,8 +22,11 @@ export default function Navigation() {
                 <li>
                     <Link to='/admin'>Admin</Link>
                 </li>
+                <li>
+                <SignOut />
+                </li>
             </ul>
-           
+         
         </div>
     )
 }
