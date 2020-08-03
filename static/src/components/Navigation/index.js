@@ -1,25 +1,25 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import * as Routes from '../../constants/routes'
+
 
 export default function Navigation() {
     return (
         <div>
             <ul>
                 <li>
-                    <Link to={Routes.SIGN_IN}>Sign In</Link>
+                    <Link to='/signin'>Sign In</Link>
                 </li>
                 <li>
-                    <Link to={Routes.LANDING}>Landing</Link>
+                    <Link to='/'>Landing</Link>
                 </li>
                 <li>
-                    <Link to={Routes.HOME}>Home</Link>
+                    <Link to='/home'>Home</Link>
                 </li>
                 <li>
-                    <Link to={Routes.ACCOUNT}>Account</Link>
+                    <Link to='/account'>Account</Link>
                 </li>
                 <li>
-                    <Link to={Routes.ADMIN}>Admin</Link>
+                    <Link to='/admin'>Admin</Link>
                 </li>
             </ul>
            

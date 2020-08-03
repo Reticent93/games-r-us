@@ -9,26 +9,26 @@ import Home from '../Home'
 import Accout from '../Account'
 import Admin from '../Admin'
 
-import * as ROUTES from '../../constants/routes'
+import { AuthProvider } from '../Firebase/context'
+import PrivateRoute from '../PrivateRoute/privateRoute'
 
 
 export default function App() {
     return (
+        <AuthProvider>
         <Router>
             <div>
             <Navigation />
             <hr />
-            <Route exact path={ROUTES.LANDING} component={Landing} />
-            <Route  path={ROUTES.SIGN_UP} component={SignUp} />
-            <Route  path={ROUTES.SIGN_IN} component={SignIn} />
-            <Route  path={ROUTES.PASSWORD_FORGET} component={PasswordForget} />
-            <Route  path={ROUTES.HOME} component={Home} />
-            <Route  path={ROUTES.ACCOUNT} component={Accout} />
-            <Route  path={ROUTES.ADMIN} component={Admin} />
-
-
-        
+            <PrivateRoute exact path='/' component={Landing} />
+            <Route  path='signup' component={SignUp} />
+            <Route  path='signin' component={SignIn} />
+            <Route  path='/pw-forget' component={PasswordForget} />
+            <Route  path='/home' component={Home} />
+            <Route  path='/account' component={Accout} />
+            <Route  path='/admin' component={Admin} />
             </div>
         </Router>
+        </AuthProvider>
     )
 }
