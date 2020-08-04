@@ -21,12 +21,12 @@ export default function App() {
             <Navigation />
             <hr />
             <PrivateRoute exact path='/' component={Landing} />
-            <Route  path='signup' component={SignUp} />
-            <Route  path='signin' component={SignIn} />
+            <Route  path='/signin' component={SignIn} />
+            <Route  path='/signup' component={SignUp} />
             <Route  path='/pw-forget' component={PasswordForget} />
-            <Route  path='/home' component={Home} />
-            <Route  path='/account' component={Accout} />
-            <Route  path='/admin' component={Admin} />
+            <PrivateRoute  path='/home' component={Home} />
+            <PrivateRoute  path='/account' component={Accout} />
+            <PrivateRoute  path='/admin' component={Admin} />
             </div>
         </Router>
         </AuthProvider>

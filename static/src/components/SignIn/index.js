@@ -1,40 +1,43 @@
-import React, {useState, useContext} from 'react'
+import React, {useState, useContext, useCallback} from 'react'
 import {useForm} from 'react-hook-form'
 import  { Redirect, withRouter } from 'react-router-dom'
-import firebase from '../../components/utils/firebase'
-import AuthContext from '../Auth'
+import firebase from '../utils/firebase'
+import {AuthContext} from '../Auth'
 
 
-function SignIn({email, passwordOne,passwordTwo,username, history}) {
+function SignIn({  history}) {
+  
     const [errors, setErrors] = useState()
     const {handleSubmit} = useForm()
-    const {currentUser} = useContext(AuthContext)
-    if (currentUser) {
-        return <Redirect to="/" />
-    }
-    const onSubmit = (async e => {
+
+    const onSubmit = useCallback(async e => {
         e.preventDefault()
+       const {email, passwordOne} = e.target.elements
        
-       history.push('/home')
 
     try {
-        await firebase.auth().signInWithEmailAndPassword(email, passwordOne) 
+        await firebase.auth().signInWithEmailAndPassword(email.value, passwordOne.value) 
+        history.push('/home')
     }catch (err) {
-        setErrors(err.message)
+        alert(err)
     }
+    }, [history])
 
-}, [history])
+    const {currentUser} = useContext(AuthContext)
+    if (currentUser) {
+    return <Redirect to="/" />
+}
     return ( 
         <div>
             <h1>SignIn</h1>
             <form onSubmit={handleSubmit(onSubmit)}>
-            <input  name="username" value={username}  type="text" placeholder="Full Name"  />
+            <input  name="username"  type="text" placeholder="Full Name"  />
             {errors.username && <p>This is required</p>}
-            <input  name="email" value={email}  type="email" placeholder="Email Address"  />
+            <input  name="email"   type="email" placeholder="Email Address"  />
             {errors.email && <p>This is required</p>}
-            <input  name="passwordOne" value={passwordOne}  type="text" placeholder="Password"  />
+            <input  name="passwordOne"   type="text" placeholder="Password"  />
             {errors.passwordOne && <p>This is required</p>}
-            <input  name="passwordTwo" value={passwordTwo}  type="text" placeholder="Confirm Password"  />
+            <input  name="passwordTwo"   type="text" placeholder="Confirm Password"  />
             {errors.passwordTwo && <p>This is required</p>}
             <button  type="submit">Sign Up</button>
     

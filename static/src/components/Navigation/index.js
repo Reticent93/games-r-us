@@ -7,11 +7,15 @@ export default function Navigation() {
     return (
         <div>
             <ul>
+
+                <li>
+                    <Link to='/'>Landing</Link>
+                </li>
                 <li>
                     <Link to='/signin'>Sign In</Link>
                 </li>
                 <li>
-                    <Link to='/'>Landing</Link>
+                    <Link to='/signup'>Sign Up</Link>
                 </li>
                 <li>
                     <Link to='/home'>Home</Link>

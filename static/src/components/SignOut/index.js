@@ -1,10 +1,11 @@
 import React from 'react'
-import firebase from '../Auth'
+import {AuthContext} from '../Auth'
+import firebase from '../utils/firebase'
 
 export default function SignOut() {
     return (
         <div>
-            <h1>SignOut</h1>
+         
             <button
  
   onClick={async () => firebase.auth().signOut()}
