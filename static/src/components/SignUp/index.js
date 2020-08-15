@@ -1,52 +1,116 @@
-import React, {useCallback, useState} from 'react'
+import React, { useState} from 'react'
+import {Link} from 'react-router-dom'
 import {useForm} from 'react-hook-form'
 import firebase from '../utils/firebase'
-import { withRouter} from 'react-router-dom'
+import { withRouter} from 'react-router'
+import { auth } from 'firebase'
 
 
-const  SignUp = ({history}) => {
+
+
+
+
+const  SignUp = (props) => {
+   const [error, setError] = useState()
+    const [email, setEmail] = useState("")
+    const [passwordOne, setPasswordOne] = useState("")
+    const [passwordTwo, setPasswordTwo] = useState("")
+    const [username, setUsername] = useState('')
+
+    const createUserWithEmailPassword = (e, email, passwordOne) => {
+
+      try {
+         firebase.auth.createUserWithEmailPassword(email, passwordOne)
+         props.history.push('/home')
+      } catch(err) {
+        alert(err.message)
+      }
+      e.preventDefault()
+      setEmail('')
+      setPasswordOne('')
+      setPasswordTwo('')
+
+    }
   
-    
-   const [errors, setErrors] = useState()
-    const {register, handleSubmit}= useForm()
-    
 
+const handleChange = e => {
+  const {name, value} = e.currentTarget
+  if(name === "userEmail") {
+    setEmail(value)
+  } else if(name === "userPassword") {
+    setPasswordOne(value)
+  } else if(name === "username") {
+    setUsername(value)
+  }
+};
 
-    const onSubmit = useCallback(async e => {
-        e.preventDefault()
-       const {email, passwordOne} = e.target.elements
-       history.push('/')
-    
-try {
-  
-  await firebase
-  .auth()
-  .createUserWithEmailAndPassword(email.value,passwordOne.value);
-    history.push('/')
-      } catch(error) {
-        alert(error);
-   }
- }, [history])
-
-    return (
-       <div>
-         <h1>Sign Up</h1>
-    <form onSubmit={handleSubmit(onSubmit)}>
-            <input  name="username"  type="text" placeholder="Full Name" reg={register({required: true})} />
-            {errors.username && <p>This is required</p>}
-            <input  name="email"   type="email" placeholder="Email Address" reg={register({required: true})} />
-            {errors.email && <p>This is required</p>}
-            <input  name="passwordOne"  type="text" placeholder="Password" reg={register({required: true})} />
-            {errors.passwordOne && <p>This is required</p>}
-            <input  name="passwordTwo"  type="text" placeholder="Confirm Password" reg={register({required: true})} />
-            {errors.passwordTwo && <p>This is required</p>}
-            <button  type="submit">Sign Up</button>
-  
-        </form>
+return (
+  <div>
+    <h1>Sign Up</h1>
+    <div>
+      {error !== null && (
+        <div>
+          {error}
         </div>
-    )
+      )}
+      <form className="">
+        <label htmlFor="username" className="block">
+          Display Name:
+        </label>
+        <input
+          type="text"
+          name="username"
+          value={username}
+          placeholder="Name"
+          id="username"
+          onChange={event => handleChange(event)}
+        />
+        <label htmlFor="userEmail" className="block">
+          Email:
+        </label>
+        <input
+          type="email"
+          name="userEmail"
+          value={email}
+          placeholder="Email"
+          id="userEmail"
+          onChange={event => handleChange(event)}
+        />
+        <label htmlFor="userPassword" className="block">
+          Password:
+        </label>
+        <input
+          type="password"
+          name="userPassword"
+          value={passwordOne}
+          placeholder="Your Password"
+          id="userPassword"
+          onChange={event => handleChange(event)}
+        />
+        <button
+          onClick={event => {
+            createUserWithEmailPassword(event, email, passwordOne);
+          }}
+        >
+          Sign up
+        </button>
+      </form>
+      <p>or</p>
+      <button>
+        Sign In with Google
+      </button>
+      <p>
+        Already have an account?{" "}
+        <Link to="/signin">
+          Sign in here
+        </Link>
+      </p>
+    </div>
+  </div>
+);
+
 }
 
 
 
-export default withRouter(SignUp)
+export default SignUp

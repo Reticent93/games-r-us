@@ -6,6 +6,7 @@ export const AuthContext = createContext()
 export const AuthProvider =  ({children}) => {
   const [currentUser, setCurrentUser] = useState(null)  
   const [pending, setPending] = useState(true)
+  console.log("auth", currentUser)
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {

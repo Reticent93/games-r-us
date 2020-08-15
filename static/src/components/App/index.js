@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import Navigation from '../Navigation'
 import Landing  from '../Landing'
@@ -14,6 +14,7 @@ import PrivateRoute from '../PrivateRoute/privateRoute'
 
 
 export default function App() {
+  
     return (
         <AuthProvider>
         <Router>

@@ -1,47 +1,53 @@
-import React, {useState, useContext, useCallback} from 'react'
-import {useForm} from 'react-hook-form'
-import  { Redirect, withRouter } from 'react-router-dom'
-import firebase from '../utils/firebase'
-import {AuthContext} from '../Auth'
+import React, {useState} from 'react'
+import  {  Link } from 'react-router-dom'
 
 
-function SignIn({  history}) {
+const SignIn = ({  history}) => {
   
-    const [errors, setErrors] = useState()
-    const {handleSubmit} = useForm()
+    const [email, setEmail] = useState("")
+    const [passwordOne, setPasswordOne] = useState("")
+    const [errors, setErrors] = useState(null)
+   
 
-    const onSubmit = useCallback(async e => {
+    const signInWithEmailPassword = (e, email, passwordOne) => {
         e.preventDefault()
-       const {email, passwordOne} = e.target.elements
-       
-
-    try {
-        await firebase.auth().signInWithEmailAndPassword(email.value, passwordOne.value) 
-        history.push('/home')
-    }catch (err) {
-        alert(err)
     }
-    }, [history])
 
-    const {currentUser} = useContext(AuthContext)
-    if (currentUser) {
-    return <Redirect to="/" />
+    const handleChange = e => {
+        const {name, value} = e.currentTarget
+
+        if (name === "userEmail") {
+            setEmail(value)
+        }
+     else if(name === "userPassword") {
+        setPasswordOne(value)
+    }
 }
+
+
     return ( 
         <div>
             <h1>SignIn</h1>
-            <form onSubmit={handleSubmit(onSubmit)}>
-            <input  name="username"  type="text" placeholder="Full Name"  />
-            {errors.username && <p>This is required</p>}
-            <input  name="email"   type="email" placeholder="Email Address"  />
+            <form >
+            <label htmlFor="userEmail">
+                Email:
+            <input name="userEmail" value={email} type="email" placeholder="Email" onChange={e => handleChange(e)} />
             {errors.email && <p>This is required</p>}
-            <input  name="passwordOne"   type="text" placeholder="Password"  />
+            { console.log("email", email)}
+            </label>
+            Password:
+            <label htmlFor="userPassword">
+            <input  name="passwordOne"   value={passwordOne} type="text" placeholder="Password" onChange={e => handleChange(e)}  />
             {errors.passwordOne && <p>This is required</p>}
-            <input  name="passwordTwo"   type="text" placeholder="Confirm Password"  />
-            {errors.passwordTwo && <p>This is required</p>}
-            <button  type="submit">Sign Up</button>
-    
+            </label>
+            <button  type="submit" onClick ={e => {signInWithEmailPassword(e, email, passwordOne)}}>Sign In</button>
         </form>
+        <p>
+            Don't have an account? {" "}
+            <Link to={"/signup"}>
+                Sign Up Here
+            </Link>{" "}
+        </p>
 
 
         </div>
@@ -49,4 +55,4 @@ function SignIn({  history}) {
 }
 
 
-export default withRouter(SignIn)
+export default SignIn
