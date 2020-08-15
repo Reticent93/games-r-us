@@ -21,7 +21,7 @@ const  SignUp = (props) => {
 
       try {
          firebase.auth.createUserWithEmailPassword(email, passwordOne)
-         props.history.push('/home')
+         props.history.push('/signin')
       } catch(err) {
         alert(err.message)
       }
@@ -53,8 +53,8 @@ return (
           {error}
         </div>
       )}
-      <form className="">
-        <label htmlFor="username" className="block">
+      <form >
+        <label htmlFor="username" >
           Display Name:
         </label>
         <input
@@ -63,9 +63,9 @@ return (
           value={username}
           placeholder="Name"
           id="username"
-          onChange={event => handleChange(event)}
+          onChange={e => handleChange(e)}
         />
-        <label htmlFor="userEmail" className="block">
+        <label htmlFor="userEmail">
           Email:
         </label>
         <input
@@ -74,9 +74,9 @@ return (
           value={email}
           placeholder="Email"
           id="userEmail"
-          onChange={event => handleChange(event)}
+          onChange={e => handleChange(e)}
         />
-        <label htmlFor="userPassword" className="block">
+        <label htmlFor="userPassword">
           Password:
         </label>
         <input
@@ -88,8 +88,8 @@ return (
           onChange={event => handleChange(event)}
         />
         <button
-          onClick={event => {
-            createUserWithEmailPassword(event, email, passwordOne);
+          onClick={e => {
+            createUserWithEmailPassword(e, email, passwordOne);
           }}
         >
           Sign up

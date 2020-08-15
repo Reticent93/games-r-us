@@ -26,7 +26,7 @@ const PasswordForget = () => {
             <input type='email' name="userEmail" value={email} placeholder="Input your email" onChange={handleChange} />
             <button>Send me a reset link</button>
             </form>
-            <Link to="/">
+            <Link to="/signin">
                 &larr; back to sign in page
             </Link>
         </div>
